@@ -30,13 +30,10 @@ const DiscoverForm = () => {
       .join(',');
 
     window.history.replaceState(null, '', window.location.pathname);
-
-    setTimeout(() => {
-      setSortBy(sortOption ?? '');
-      setGenres(genres ?? '');
-      setYear(year ?? '');
-      setIncludeAdult(includeAdult);
-    }, 0);
+    setSortBy(sortOption ?? '');
+    setGenres(genres ?? '');
+    setYear(year ?? '');
+    setIncludeAdult(includeAdult);
   };
 
   return (
@@ -45,17 +42,22 @@ const DiscoverForm = () => {
       className='flex flex-col w-4/5 sm:w-4/5 md:w-2/3 max-w-4xl gap-y-5 py-10 px-4 sm:px-16 bg-white border border-black/20 rounded-md'
     >
       <div className='flex justify-center gap-y-5 gap-x-4 flex-col sm:flex-row'>
-        <SortBy />
+        <SortBy defaultValue={sortBy} />
         <Input
           type='number'
           name='year'
           min={1800}
+          defaultValue={year}
           max={currentYear + 5}
           placeholder='Year'
           className='w-full sm:max-w-24 md:max-w-28 text-base'
         />
         <div className='flex items-center space-x-2'>
-          <Checkbox name='include_adult' id='adult' />
+          <Checkbox
+            defaultValue={includeAdult}
+            name='include_adult'
+            id='adult'
+          />
           <label
             htmlFor='adult'
             className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
@@ -65,7 +67,7 @@ const DiscoverForm = () => {
         </div>
       </div>
 
-      <GenreCheckboxes />
+      <GenreCheckboxes genres={genres}/>
       <Button
         variant='destructive'
         type='submit'

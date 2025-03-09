@@ -20,14 +20,14 @@ export const fetchMovies = async (
     const totalPages: number = total_pages;
 
     return {
-        movies,
-        totalPages,
+      movies,
+      totalPages,
     };
   } catch (error) {
-    console.error('Error fetching movies:', error);
+    console.log(error);
     return {
-        movies: [] as MovieType[],
-        totalPages: 0,
+      movies: [] as MovieType[],
+      totalPages: 0,
     };
   }
 };

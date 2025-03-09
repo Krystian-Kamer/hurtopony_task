@@ -1,6 +1,8 @@
 import SectionTitle from '@/components/SectionTitle';
 import Image from 'next/image';
 import { Genre } from '@/types';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const API_KEY = process.env.API_KEY;
 
@@ -21,7 +23,7 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
   const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
   const response = await fetch(url);
   const movie = await response.json();
-  console.log(movie);
+
   const {
     title,
     genres,
@@ -88,11 +90,16 @@ const MoviePage = async ({ params }: { params: { id: string } }) => {
             <span className='font-bold'>Vote count</span> : {voteCount}
           </p>
           {releaseDate ? (
-              <p>
-                <span className='font-bold'>Release date</span> : {releaseDate}
-              </p>
+            <p>
+              <span className='font-bold'>Release date</span> : {releaseDate}
+            </p>
           ) : null}
         </div>
+      </div>
+      <div className='mx-auto flex justify-center max-w-5xl my-32'>
+        <Button variant='destructive' asChild>
+          <Link href='/'>back to home page</Link>
+        </Button>
       </div>
     </div>
   );

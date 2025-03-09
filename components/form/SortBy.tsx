@@ -8,9 +8,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-const SortBy = () => {
+const SortBy = ({ defaultValue }: { defaultValue: string }) => {
   return (
-    <Select name='sort_by'>
+    <Select name='sort_by' defaultValue={defaultValue}>
       <SelectTrigger className='w-full sm:max-w-80 text-base'>
         <SelectValue placeholder='Sort movies by...' />
       </SelectTrigger>

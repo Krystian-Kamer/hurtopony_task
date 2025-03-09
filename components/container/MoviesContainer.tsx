@@ -46,7 +46,7 @@ const MoviesContainer = () => {
           return (
             <motion.div
               key={id}
-              initial={{ opacity: 0, y: 200 }}
+              initial={{ opacity: 0, y: 100 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >

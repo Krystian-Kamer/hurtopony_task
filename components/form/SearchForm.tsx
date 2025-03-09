@@ -11,9 +11,7 @@ const SearchForm = () => {
     const formData = new FormData(e.currentTarget);
     const searchQuery = formData.get('query') as string;
     window.history.replaceState(null, '', window.location.pathname);
-    setTimeout(() => {
-      setQuery(searchQuery);
-    }, 0);
+    setQuery(searchQuery);
   };
 
   return (
