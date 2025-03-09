@@ -17,9 +17,13 @@ type SingleMovieProps = {
   poster_path: string;
 };
 
-const MoviePage = async ({ params }: { params: { id: string } }) => {
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+const MoviePage = async ({ params }: PageProps) => {
   const resolvedParams = await params;
-  const { id } = resolvedParams;
+  const { id } = resolvedParams; 
   const movieId = id;
   const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
   const response = await fetch(url);
