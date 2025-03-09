@@ -3,11 +3,12 @@ import { useSearchParams } from 'next/navigation';
 import { fetchMovies } from '@/utils/actions';
 import Movie from './MovieCard';
 import PageHandler from '@/components/form/PageHandler';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, Suspense } from 'react';
 import { MovieType } from '@/types';
 import { motion } from 'framer-motion';
 
-const MoviesContainer = () => {
+// Component that uses useSearchParams inside Suspense
+const MoviesList = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
@@ -30,7 +31,7 @@ const MoviesContainer = () => {
   if (!movies.length && !loading) {
     return (
       <h2 className='text-2xl tracking-wider my-40 font-semibold '>
-        There are no Movies that meat the criteria.
+        There are no Movies that meet the criteria.
       </h2>
     );
   }
@@ -67,4 +68,15 @@ const MoviesContainer = () => {
     </>
   );
 };
+
+const MoviesContainer = () => {
+  return (
+    <Suspense
+      fallback={<div className='py-20 text-center'>Loading movies...</div>}
+    >
+      <MoviesList />
+    </Suspense>
+  );
+};
+
 export default MoviesContainer;
