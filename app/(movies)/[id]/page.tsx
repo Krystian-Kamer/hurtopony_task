@@ -61,7 +61,7 @@ const MoviePage = async ({ params }: PageProps) => {
           </div>
         )}
 
-        <div className='mx-20 grid gap-y-4 text-lg'>
+        <div className='mx-10 grid gap-y-4 text-lg'>
           {homepage ? (
             <>
               <p className='font-bold'>Link</p>

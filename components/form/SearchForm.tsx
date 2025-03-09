@@ -17,7 +17,7 @@ const SearchForm = () => {
   return (
     <form
       onSubmit={(e) => handleSubmit(e)}
-      className='flex w-full max-w-sm items-center space-x-2 bg-white'
+      className='flex w-4/5 sm:w-full max-w-sm items-center space-x-2 bg-white'
     >
       <Input
         type='text'

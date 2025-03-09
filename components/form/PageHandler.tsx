@@ -76,8 +76,8 @@ const PageHandler = ({ totalPages, containerRef }: PageHandlerProps) => {
                   scrollToTop();
                 }}
                 className={`${
-                  pageNumber === page ? 'bg-green-300 hover:bg-green-400' : null
-                } mx-1 border-none sm:mx-2`}
+                  pageNumber === page ? 'bg-green-300 hover:bg-green-400' : 'bg-green-100 hover:bg-green-200'
+                } border-none sm:mx-2 px-1 sm:px-2 `}
               >
                 {pageNumber}
               </Button>

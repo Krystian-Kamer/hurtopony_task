@@ -35,9 +35,7 @@ const Movie = ({ id, title, overview, img, loading }: MovieProps) => {
                   height='330'
                   src={`https://www.themoviedb.org/t/p/w220_and_h330_face${img}`}
                   alt={title}
-                  layout='responsive'
-                  objectFit='cover'
-                  priority={loading}
+                  priority
                 />
               ) : (
                 <div className='w-[220px] h-[330px] bg-black/10 flex flex-col justify-center items-center'>
