@@ -3,12 +3,11 @@ import { useSearchParams } from 'next/navigation';
 import { fetchMovies } from '@/utils/actions';
 import Movie from './MovieCard';
 import PageHandler from '@/components/form/PageHandler';
-import { useEffect, useState, useRef, Suspense } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { MovieType } from '@/types';
 import { motion } from 'framer-motion';
 
-// Component that uses useSearchParams inside Suspense
-const MoviesList = () => {
+const MoviesContainer = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
@@ -66,16 +65,6 @@ const MoviesList = () => {
         <PageHandler containerRef={containerRef} totalPages={totalPages} />
       ) : null}
     </>
-  );
-};
-
-const MoviesContainer = () => {
-  return (
-    <Suspense
-      fallback={<div className='py-20 text-center'>Loading movies...</div>}
-    >
-      <MoviesList />
-    </Suspense>
   );
 };
 
