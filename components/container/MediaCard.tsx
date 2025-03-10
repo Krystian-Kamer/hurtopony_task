@@ -9,7 +9,8 @@ import {
 } from '@/components/ui/tooltip';
 import { Skeleton } from '../ui/skeleton';
 
-interface MovieProps {
+interface MediaProps {
+  type: 'movies' | 'series';
   id: number;
   title: string;
   overview: string;
@@ -17,7 +18,7 @@ interface MovieProps {
   loading: boolean;
 }
 
-const Movie = ({ id, title, overview, img, loading }: MovieProps) => {
+const MediaCard = ({ type, id, title, overview, img, loading }: MediaProps) => {
   return (
     <TooltipProvider delayDuration={400}>
       <Tooltip>
@@ -26,7 +27,7 @@ const Movie = ({ id, title, overview, img, loading }: MovieProps) => {
             <Skeleton className='h-[330px] w-[220px] rounded-md' />
           ) : (
             <Link
-              href={`/${id}`}
+              href={`/${type === 'series' ? `series/${id}` : id}`}
               className='flex relative rounded-md overflow-hidden w-[220px] flex-col bg-white border border-black/10 hover:shadow-2xl hover:scale-105 duration-700 h-[400px]'
             >
               {img ? (
@@ -63,4 +64,4 @@ const Movie = ({ id, title, overview, img, loading }: MovieProps) => {
     </TooltipProvider>
   );
 };
-export default Movie;
+export default MediaCard;

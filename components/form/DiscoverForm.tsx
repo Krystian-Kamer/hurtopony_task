@@ -4,10 +4,8 @@ import GenreCheckboxes from './GenreCheckboxes';
 import SortBy from './SortBy';
 import { Button } from '../ui/button';
 import { Checkbox } from '../ui/checkbox';
-import { Input } from '../ui/input';
 
 const DiscoverForm = () => {
-  const currentYear = new Date().getFullYear();
   const [includeAdult, setIncludeAdult] = useQueryState('include_adult', {
     defaultValue: '',
   });
@@ -15,7 +13,6 @@ const DiscoverForm = () => {
     defaultValue: '',
   });
   const [sortBy, setSortBy] = useQueryState('sort_by', { defaultValue: '' });
-  const [year, setYear] = useQueryState('year', { defaultValue: '' });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,7 +21,7 @@ const DiscoverForm = () => {
     const sortOption = formData.get('sort_by') as string | null;
     const includeAdult =
       formData.get('include_adult') === 'on' ? 'true' : 'false';
-    const year = formData.get('year') as string | null;
+      
     const genres = Object.keys(data)
       .filter((genre) => !isNaN(Number(genre)))
       .join(',');
@@ -32,7 +29,6 @@ const DiscoverForm = () => {
     window.history.replaceState(null, '', window.location.pathname);
     setSortBy(sortOption ?? '');
     setGenres(genres ?? '');
-    setYear(year ?? '');
     setIncludeAdult(includeAdult);
   };
 
@@ -43,15 +39,6 @@ const DiscoverForm = () => {
     >
       <div className='flex justify-center gap-y-5 gap-x-4 flex-col sm:flex-row'>
         <SortBy defaultValue={sortBy} />
-        <Input
-          type='number'
-          name='year'
-          min={1800}
-          defaultValue={year}
-          max={currentYear + 5}
-          placeholder='Year'
-          className='w-full sm:max-w-24 md:max-w-28 text-base'
-        />
         <div className='flex items-center space-x-2'>
           <Checkbox
             defaultValue={includeAdult}

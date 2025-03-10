@@ -1,5 +1,10 @@
 'use client';
-import { MovieType, FetchMoviesResponse } from '@/types';
+import {
+  MovieType,
+  SerieType,
+  FetchMoviesResponse,
+  FetchSeriesResponse,
+} from '@/types';
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 export const fetchMovies = async (
@@ -27,6 +32,36 @@ export const fetchMovies = async (
     console.log(error);
     return {
       movies: [] as MovieType[],
+      totalPages: 0,
+    };
+  }
+};
+
+export const fetchSeries = async (
+  stringParams: string
+): Promise<FetchSeriesResponse> => {
+  let url;
+  if (stringParams.includes('query')) {
+    url = `https://api.themoviedb.org/3/search/tv?${stringParams}&api_key=${API_KEY}`;
+  } else {
+    url = `https://api.themoviedb.org/3/discover/tv?${stringParams}&api_key=${API_KEY}`;
+  }
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    const { results, total_pages } = data;
+    const series: SerieType[] = results;
+    const totalPages: number = total_pages;
+
+    return {
+      series,
+      totalPages,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      series: [] as SerieType[],
       totalPages: 0,
     };
   }

@@ -8,17 +8,28 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 
-const Breadcrumbs = () => {
+const Breadcrumbs = ({ type }: { type: 'movie' | 'serie' }) => {
   return (
     <div className='mx-auto mt-10 px-10 lg:px-0 max-w-4xl'>
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-              <Link href='/'>Home</Link>
+            <Link href='/'>Home</Link>
           </BreadcrumbItem>
-          <BreadcrumbSeparator />
+
+          {type === 'serie' ? (
+            <>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <Link href='/series'>Series</Link>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+            </>
+          ) : (
+            <BreadcrumbSeparator />
+          )}
           <BreadcrumbItem>
-            <BreadcrumbPage>Movie</BreadcrumbPage>
+            <BreadcrumbPage className='capitalize'>{type}</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
