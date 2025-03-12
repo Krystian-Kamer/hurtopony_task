@@ -21,7 +21,7 @@ const DiscoverForm = () => {
     const sortOption = formData.get('sort_by') as string | null;
     const includeAdult =
       formData.get('include_adult') === 'on' ? 'true' : 'false';
-      
+
     const genres = Object.keys(data)
       .filter((genre) => !isNaN(Number(genre)))
       .join(',');
@@ -30,6 +30,7 @@ const DiscoverForm = () => {
     setSortBy(sortOption ?? '');
     setGenres(genres ?? '');
     setIncludeAdult(includeAdult);
+    e.currentTarget.reset();
   };
 
   return (
@@ -41,7 +42,7 @@ const DiscoverForm = () => {
         <SortBy defaultValue={sortBy} />
         <div className='flex items-center space-x-2'>
           <Checkbox
-            defaultValue={includeAdult}
+            defaultChecked={includeAdult === 'true' ? true : false }
             name='include_adult'
             id='adult'
           />
@@ -53,8 +54,7 @@ const DiscoverForm = () => {
           </label>
         </div>
       </div>
-
-      <GenreCheckboxes genres={genres}/>
+      <GenreCheckboxes genres={genres} />
       <Button
         variant='destructive'
         type='submit'

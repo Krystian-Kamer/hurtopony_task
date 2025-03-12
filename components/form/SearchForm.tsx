@@ -3,8 +3,10 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useQueryState } from 'nuqs';
+import { useRef } from 'react';
 const SearchForm = () => {
   const [query, setQuery] = useQueryState('query', { defaultValue: '' });
+  const queryRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -12,6 +14,9 @@ const SearchForm = () => {
     const searchQuery = formData.get('query') as string;
     window.history.replaceState(null, '', window.location.pathname);
     setQuery(searchQuery);
+    if (queryRef.current) {
+      queryRef.current.value = '';
+    }
   };
 
   return (
@@ -21,6 +26,7 @@ const SearchForm = () => {
     >
       <Input
         type='text'
+        ref={queryRef}
         name='query'
         placeholder='Type here title...'
         defaultValue={query}
