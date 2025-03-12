@@ -67,7 +67,7 @@ const MoviePage = async ({ params }: PageProps) => {
               <p className='font-bold'>Link</p>
               <a
                 href={homepage}
-                className='text-blue-500 w-fit hover:text-blue-700'
+                className='text-blue-500 w-fit hover:text-blue-700 break-all'
                 target='_blank'
               >
                 {homepage}
