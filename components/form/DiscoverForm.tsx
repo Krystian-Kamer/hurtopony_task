@@ -1,4 +1,5 @@
 'use client';
+import { useSearchParams } from 'next/navigation';
 import { useQueryState } from 'nuqs';
 import GenreCheckboxes from './GenreCheckboxes';
 import SortBy from './SortBy';
@@ -13,6 +14,7 @@ const DiscoverForm = () => {
     defaultValue: '',
   });
   const [sortBy, setSortBy] = useQueryState('sort_by', { defaultValue: '' });
+  const searchParams = useSearchParams();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,8 +27,9 @@ const DiscoverForm = () => {
     const genres = Object.keys(data)
       .filter((genre) => !isNaN(Number(genre)))
       .join(',');
-
-    window.history.replaceState(null, '', window.location.pathname);
+    if (!searchParams.has('include_adult')) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
     setSortBy(sortOption ?? '');
     setGenres(genres ?? '');
     setIncludeAdult(includeAdult);
@@ -42,7 +45,7 @@ const DiscoverForm = () => {
         <SortBy defaultValue={sortBy} />
         <div className='flex items-center space-x-2'>
           <Checkbox
-            defaultChecked={includeAdult === 'true' ? true : false }
+            defaultChecked={includeAdult === 'true' ? true : false}
             name='include_adult'
             id='adult'
           />
