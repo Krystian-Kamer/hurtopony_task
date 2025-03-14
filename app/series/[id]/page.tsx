@@ -24,6 +24,7 @@ const SeriePage = async ({ params }: PageProps) => {
   const resolvedParams = await params;
   const { id } = resolvedParams;
   const serieId = id;
+  console.log(serieId);
   const url = `https://api.themoviedb.org/3/tv/${serieId}?api_key=${API_KEY}`;
   const response = await fetch(url);
   const serie = await response.json();
@@ -50,7 +51,7 @@ const SeriePage = async ({ params }: PageProps) => {
             height='513'
             src={`https://www.themoviedb.org/t/p/w342${img}`}
             alt={title}
-            className='place-self-center rounded-lg'
+            className='mx-auto rounded-lg'
             priority
           />
         ) : (
@@ -88,7 +89,7 @@ const SeriePage = async ({ params }: PageProps) => {
       </div>
       <div className='mx-auto flex justify-center max-w-5xl my-32'>
         <Button variant='destructive' asChild>
-          <Link href='/'>back to home page</Link>
+          <Link href='/series'>back to series page</Link>
         </Button>
       </div>
     </div>

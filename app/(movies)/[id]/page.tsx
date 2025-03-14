@@ -23,7 +23,7 @@ interface PageProps {
 
 const MoviePage = async ({ params }: PageProps) => {
   const resolvedParams = await params;
-  const { id } = resolvedParams; 
+  const { id } = resolvedParams;
   const movieId = id;
   const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
   const response = await fetch(url);
@@ -52,7 +52,7 @@ const MoviePage = async ({ params }: PageProps) => {
             height='513'
             src={`https://www.themoviedb.org/t/p/w342${img}`}
             alt={title}
-            className='place-self-center rounded-lg'
+            className='mx-auto rounded-lg'
             priority
           />
         ) : (
