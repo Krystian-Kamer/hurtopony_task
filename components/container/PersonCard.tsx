@@ -63,7 +63,11 @@ const PersonCard = ({
               <div className='flex items-center justify-center h-[70px]'>
                 <h2
                   className={`${
-                    [...name].length > 28 ? 'text-base' : 'text-xl'
+                    [...name].length > 40
+                      ? 'text-sm'
+                      : [...name].length > 28
+                      ? 'text-base'
+                      : 'text-xl'
                   } font-semibold px-1 tracking-wide`}
                 >
                   {name}
@@ -80,8 +84,8 @@ const PersonCard = ({
                 <p className='pt-4'>Known for:</p>
                 {filteredKnownFor.map((media) => (
                   <p key={media.title}>
-                    <span className='font-bold'>{media.title}</span> (
-                    {media.date})
+                    <span className='font-bold'>{media.title}</span>{' '}
+                    {media.date && `(${media.date})`}
                   </p>
                 ))}
               </>

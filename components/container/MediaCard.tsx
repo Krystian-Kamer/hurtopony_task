@@ -46,7 +46,11 @@ const MediaCard = ({ type, id, title, overview, img, loading }: MediaProps) => {
               <div className='flex items-center justify-center h-[70px]'>
                 <h2
                   className={`${
-                    [...title].length > 28 ? 'text-base' : 'text-xl'
+                    [...title].length > 40
+                      ? 'text-sm'
+                      : [...title].length > 28
+                      ? 'text-base'
+                      : 'text-xl'
                   } font-semibold px-1 tracking-wide`}
                 >
                   {title}
