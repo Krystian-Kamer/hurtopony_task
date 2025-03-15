@@ -85,7 +85,13 @@ const PersonPage = async ({ params }: PageProps) => {
           {gender ? (
             <p>
               <span className='font-bold'>Gender</span> :{' '}
-              {gender === 1 ? 'woman' : gender === 2 ? 'man' : 'other'}
+              {gender === 0
+                ? 'Not set / not specified'
+                : gender === 1
+                ? 'Female'
+                : gender === 2
+                ? 'Male'
+                : 'Non-binary'}
             </p>
           ) : null}
           {birthday ? (

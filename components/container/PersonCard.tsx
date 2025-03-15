@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { KnownForType } from '@/types';
 
 import {
   Tooltip,
@@ -15,9 +16,26 @@ interface PersonProps {
   profession: string;
   img: string;
   loading: boolean;
+  knownFor: KnownForType[];
 }
 
-const PersonCard = ({ id, name, profession, img, loading }: PersonProps) => {
+const PersonCard = ({
+  id,
+  name,
+  profession,
+  img,
+  knownFor,
+  loading,
+}: PersonProps) => {
+  const filteredKnownFor = knownFor.map((media) => {
+    return {
+      title: media?.title || media?.name,
+      date:
+        media?.release_date?.split('-')[0] ||
+        media?.first_air_date?.split('-')[0],
+    };
+  });
+
   return (
     <TooltipProvider delayDuration={400}>
       <Tooltip>
@@ -57,6 +75,17 @@ const PersonCard = ({ id, name, profession, img, loading }: PersonProps) => {
         {profession !== '' ? (
           <TooltipContent>
             <p className='text-sm w-60'>{profession}</p>
+            {filteredKnownFor.length && (
+              <>
+                <p className='pt-4'>Known for:</p>
+                {filteredKnownFor.map((media) => (
+                  <p key={media.title}>
+                    <span className='font-bold'>{media.title}</span> (
+                    {media.date})
+                  </p>
+                ))}
+              </>
+            )}
           </TooltipContent>
         ) : null}
       </Tooltip>

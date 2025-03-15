@@ -19,7 +19,6 @@ const PersonsContainer = () => {
       setLoading(true);
       const queryString = searchParams.toString();
       const fetchedPersons = await fetchPersons(queryString);
-      console.log(fetchedPersons);
       setPersons(fetchedPersons.persons);
       setTotalPages(fetchedPersons.totalPages);
       await new Promise((resolve) => setTimeout(resolve, 200));
@@ -47,8 +46,9 @@ const PersonsContainer = () => {
             known_for_department: profession,
             name,
             profile_path: img,
+            known_for: knownFor,
           } = person;
-          console.log(id);
+
           return (
             <motion.div
               key={id}
@@ -61,6 +61,7 @@ const PersonsContainer = () => {
                 name={name}
                 profession={profession}
                 img={img}
+                knownFor={knownFor}
                 loading={loading}
               />
             </motion.div>
