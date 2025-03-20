@@ -11,4 +11,5 @@ const WatchlistPage = () => {
     </div>
   );
 };
+
 export default WatchlistPage;

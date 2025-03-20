@@ -1,5 +1,6 @@
 import { Button } from './ui/button';
 import { MdOutlineBookmarkAdd, MdOutlineBookmark } from 'react-icons/md';
+import { addToList } from '@/utils/actions';
 
 interface WatchlistBtnProps {
   inWatch?: boolean;
@@ -9,7 +10,10 @@ interface WatchlistBtnProps {
 
 const WatchlistBtn = ({ inWatch, type, id }: WatchlistBtnProps) => {
   return (
-    <Button className='w-[165px]'>
+        <Button
+          className='w-[165px]'
+          onClick={() => addToList(id, type, 'watchlist')}
+        >
       {inWatch ? (
         <>
          <span className='tracking-tighter'>Remove from watchlist</span> 
