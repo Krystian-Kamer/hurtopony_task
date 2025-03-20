@@ -7,7 +7,9 @@ import {
   FetchSeriesResponse,
   FetchPersonsResponse,
 } from '@/types';
+
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+const SESSION_ID = process.env.NEXT_PUBLIC_SESSION_ID;
 
 export const fetchMovies = async (
   stringParams: string
@@ -18,14 +20,12 @@ export const fetchMovies = async (
   } else {
     url = `https://api.themoviedb.org/3/discover/movie?${stringParams}&api_key=${API_KEY}`;
   }
-
   try {
     const response = await fetch(url);
     const data = await response.json();
     const { results, total_pages } = data;
     const movies: MovieType[] = results;
     const totalPages: number = total_pages;
-
     return {
       movies,
       totalPages,
@@ -48,14 +48,12 @@ export const fetchSeries = async (
   } else {
     url = `https://api.themoviedb.org/3/discover/tv?${stringParams}&api_key=${API_KEY}`;
   }
-
   try {
     const response = await fetch(url);
     const data = await response.json();
     const { results, total_pages } = data;
     const series: SerieType[] = results;
     const totalPages: number = total_pages;
-
     return {
       series,
       totalPages,
@@ -95,5 +93,36 @@ export const fetchPersons = async (
       persons: [] as PersonType[],
       totalPages: 0,
     };
+  }
+};
+
+export const addToList = async (
+  id: string,
+  mediaType: string,
+  listType: string
+) => {
+  const url = `https://api.themoviedb.org/3/account/21856675/watchlist?api_key=${API_KEY}&session_id=${SESSION_ID}`;
+
+  const body = {
+    media_id: id,
+    media_type: mediaType,
+    [listType]: true,
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.log('Error adding to favorites:', errorData);
+      throw new Error('Failed to add to favorite list');
+    }
+  } catch (error) {
+    console.log('Failed to add to favorite list:', error);
   }
 };

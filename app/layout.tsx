@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Hurtopony task',
-  description: 'This is a task from Hurtopony',
+  title: 'Movie Researcher',
+  description: 'Application to search for movies, tv series and people.',
 };
 
 export default function RootLayout({

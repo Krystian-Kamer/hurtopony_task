@@ -10,7 +10,7 @@ import {
 const NavLinks = () => {
   return (
     <div>
-      <div className='md:flex hidden md:gap-x-10 lg:gap-x-20'>
+      <div className='md:flex hidden md:gap-x-5 lg:gap-x-20'>
         <Button size='lg' variant='outline' asChild>
           <Link href='/series'>Series</Link>
         </Button>
@@ -19,6 +19,9 @@ const NavLinks = () => {
         </Button>
         <Button size='lg' variant='outline' asChild>
           <Link href='/favorites'>Favorites</Link>
+        </Button>
+        <Button size='lg' variant='outline' asChild>
+          <Link href='/watchlist'>Watchlist</Link>
         </Button>
       </div>
       <DropdownMenu>
@@ -39,6 +42,9 @@ const NavLinks = () => {
           </DropdownMenuItem>
           <DropdownMenuItem className='py-2 cursor-pointer' asChild>
             <Link href='/favorites'>Favorites</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem className='py-2 cursor-pointer' asChild>
+            <Link href='/watchlist'>Watchlist</Link>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

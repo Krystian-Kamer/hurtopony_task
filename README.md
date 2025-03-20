@@ -1,4 +1,4 @@
-## Hurtopony Task
+## Movie Researcher
 This is a simple project to display videos. A free API is provided by tmdb.
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).

@@ -7,9 +7,7 @@ import { Suspense } from 'react';
 const SeriesPage = () => {
   return (
     <div className='flex flex-col items-center'>
-      <Suspense
-        fallback={<div className='py-20 text-center'>Loading movies...</div>}
-      >
+      <Suspense fallback={<SectionTitle title='Loading series...' />}>
         <SectionTitle title='Search TV series' />
         <SearchForm />
         <div className='italic my-10 text-black/50'>or search by params</div>

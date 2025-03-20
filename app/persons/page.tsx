@@ -6,9 +6,7 @@ import { Suspense } from 'react';
 const PersonsPage = async () => {
   return (
     <div className='flex flex-col items-center'>
-      <Suspense
-        fallback={<div className='py-20 text-center'>Loading movies...</div>}
-      >
+      <Suspense fallback={<SectionTitle title='Loading persons...' />}>
         <SectionTitle title='Search persons' />
         <SearchForm />
         <PersonsContainer />

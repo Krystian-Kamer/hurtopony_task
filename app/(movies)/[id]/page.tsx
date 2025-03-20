@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { Genre } from '@/types';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import FavouriteBtn from '@/components/FavouriteBtn';
+import WatchlistBtn from '@/components/WatchlistBtn';
 
 const API_KEY = process.env.API_KEY;
 
@@ -29,6 +31,9 @@ const MoviePage = async ({ params }: PageProps) => {
   const response = await fetch(url);
   const movie = await response.json();
 
+  const inFav = false;
+  const inWatch = false;
+
   const {
     title,
     genres,
@@ -46,21 +51,26 @@ const MoviePage = async ({ params }: PageProps) => {
     <div className='max-w-6xl mb-40 mx-auto'>
       <SectionTitle title={title} />
       <div className='grid grid-cols-1 gap-y-10 md:grid-cols-2'>
-        {img ? (
-          <Image
-            width='342'
-            height='513'
-            src={`https://www.themoviedb.org/t/p/w342${img}`}
-            alt={title}
-            className='mx-auto rounded-lg'
-            priority
-          />
-        ) : (
-          <div className='w-[342px] h-[513px] bg-black/10 flex flex-col justify-center items-center'>
-            <p className='italic px-2 text-black/60 text-2xl'>{title}</p>
+        <div>
+          {img ? (
+            <Image
+              width='342'
+              height='513'
+              src={`https://www.themoviedb.org/t/p/w342${img}`}
+              alt={title}
+              className='mx-auto rounded-lg'
+              priority
+            />
+          ) : (
+            <div className='w-[342px] h-[513px] bg-black/10 flex flex-col justify-center items-center'>
+              <p className='italic px-2 text-black/60 text-2xl'>{title}</p>
+            </div>
+          )}
+          <div className='w-[342px] justify-self-center flex mt-2 justify-between items-center gap-x-2'>
+            <FavouriteBtn inFav={inFav} type='movie' id={id} />
+            <WatchlistBtn inWatch={inWatch} type='movie' id={id} />
           </div>
-        )}
-
+        </div>
         <div className='mx-10 grid gap-y-4 text-lg'>
           {homepage ? (
             <>
@@ -103,7 +113,7 @@ const MoviePage = async ({ params }: PageProps) => {
       </div>
       <div className='mx-auto flex justify-center max-w-5xl my-32'>
         <Button variant='destructive' asChild>
-          <Link href='/'>back to home page</Link>
+          <Link href='/'>Back to home page</Link>
         </Button>
       </div>
     </div>
