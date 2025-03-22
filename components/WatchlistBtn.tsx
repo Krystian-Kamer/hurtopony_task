@@ -1,10 +1,11 @@
+'use client'
 import { Button } from './ui/button';
 import { MdOutlineBookmarkAdd, MdOutlineBookmark } from 'react-icons/md';
 import { addToList } from '@/utils/actions';
 
 interface WatchlistBtnProps {
   inWatch?: boolean;
-  type: 'movie' | 'serie';
+  type: 'movie' | 'tv';
   id: string;
 }
 

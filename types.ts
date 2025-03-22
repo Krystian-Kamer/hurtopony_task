@@ -83,3 +83,8 @@ export interface FetchPersonsResponse {
   persons: PersonType[];
   totalPages: number;
 }
+
+export interface FetchListResponse {
+  media: MovieType[] | SerieType[];
+  totalPages: number;
+}

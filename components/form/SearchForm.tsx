@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useQueryState } from 'nuqs';
 import { useRef } from 'react';
+import { Label } from '@radix-ui/react-label';
 const SearchForm = () => {
   const [query, setQuery] = useQueryState('query', { defaultValue: '' });
   const queryRef = useRef<HTMLInputElement>(null);
@@ -26,16 +27,23 @@ const SearchForm = () => {
   return (
     <form
       onSubmit={(e) => handleSubmit(e)}
-      className='flex w-4/5 sm:w-full max-w-sm items-center space-x-2 bg-white'
+      className='flex w-64 md:w-52 gap-y-4 justify-self-center items-center flex-col bg-white'
     >
-      <Input
-        type='text'
-        ref={queryRef}
-        name='query'
-        placeholder='Type here title...'
-        defaultValue={query}
-      />
-      <Button className='cursor-pointer' type='submit'>
+      <div>
+        <Label htmlFor='query' className='font-semibold'>
+          Enter title
+        </Label>
+        <Input
+          className='w-64 md:w-52'
+          type='text'
+          id='query'
+          ref={queryRef}
+          name='query'
+          placeholder='Type here title...'
+          defaultValue={query}
+        />
+      </div>
+      <Button className='cursor-pointer w-full' type='submit'>
         Search
       </Button>
     </form>

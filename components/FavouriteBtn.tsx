@@ -5,7 +5,7 @@ import { addToList } from '@/utils/actions';
 
 interface FavouriteBtnProps {
   inFav?: boolean;
-  type: 'movie' | 'serie';
+  type: 'movie' | 'tv';
   id: string;
 }
 

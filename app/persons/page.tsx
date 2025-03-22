@@ -8,7 +8,9 @@ const PersonsPage = async () => {
     <div className='flex flex-col items-center'>
       <Suspense fallback={<SectionTitle title='Loading persons...' />}>
         <SectionTitle title='Search persons' />
-        <SearchForm />
+        <div className='w-96 bg-white h-52 border-2 rounded-sm flex justify-center items-center'>
+          <SearchForm />
+        </div>
         <PersonsContainer />
       </Suspense>
     </div>

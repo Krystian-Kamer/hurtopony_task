@@ -29,17 +29,17 @@ const SeriesContainer = () => {
 
   if (!series.length && !loading) {
     return (
-      <h2 className='text-2xl tracking-wider my-40 font-semibold '>
+      <h2 className='text-2xl tracking-wider my-40 text-center font-semibold '>
         There are no TV series that meet the criteria.
       </h2>
     );
   }
 
   return (
-    <>
+    <div className='self-center flex flex-col items-center'>
       <div
         ref={containerRef}
-        className='grid py-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10'
+        className='grid pt-10 pb-20 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 md:min-h-[1000px] gap-10'
       >
         {series.map((serie) => {
           const { id, name: title, overview, poster_path: img } = serie;
@@ -65,7 +65,7 @@ const SeriesContainer = () => {
       {!loading ? (
         <PageHandler containerRef={containerRef} totalPages={totalPages} />
       ) : null}
-    </>
+    </div>
   );
 };
 

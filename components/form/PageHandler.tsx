@@ -25,9 +25,8 @@ const PageHandler = ({ totalPages, containerRef }: PageHandlerProps) => {
     });
   };
 
-
   return (
-    <Pagination className='mb-40'>
+    <Pagination className='mb-40 w-full '>
       <PaginationContent>
         <PaginationItem>
           <Button
@@ -43,47 +42,77 @@ const PageHandler = ({ totalPages, containerRef }: PageHandlerProps) => {
           </Button>
         </PaginationItem>
 
-        {[...Array(maxPages)].map((_, i) => {
-          const pageNumber = i + 1;
+        <PaginationItem>
+          <Button
+            variant='outline'
+            onClick={() => {
+              setPage(1);
+              scrollToTop();
+            }}
+            className={`${
+              page === 1
+                ? 'bg-slate-200 drop-shadow-md hover:bg-slate-300'
+                : 'bg-slate-50 drop-shadow-md hover:bg-slate-100'
+            } border-none sm:mx-2 px-2`}
+          >
+            1
+          </Button>
+        </PaginationItem>
 
-          if (
-            maxPages > 5 &&
-            ((pageNumber > 2 && pageNumber < page - 1) ||
-              (pageNumber > page + 1 && pageNumber < maxPages - 1))
-          ) {
-            if (pageNumber === 3 && page > 4) {
-              return (
-                <PaginationItem key={pageNumber}>
-                  <PaginationEllipsis />
-                </PaginationItem>
-              );
-            } else if (pageNumber === maxPages - 2 && page < maxPages - 3) {
-              return (
-                <PaginationItem key={pageNumber}>
-                  <PaginationEllipsis />
-                </PaginationItem>
-              );
-            }
-            return null;
+        {page > 3 && (
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+        )}
+
+        {Array.from({ length: 3 }, (_, i) => page - 1 + i).map((pageNumber) => {
+          if (pageNumber > 1 && pageNumber < maxPages) {
+            return (
+              <PaginationItem key={pageNumber}>
+                <Button
+                  variant='outline'
+                  onClick={() => {
+                    setPage(pageNumber);
+                    scrollToTop();
+                  }}
+                  className={`${
+                    pageNumber === page
+                      ? 'bg-slate-200 drop-shadow-md hover:bg-slate-300'
+                      : 'bg-slate-50 drop-shadow-md hover:bg-slate-100'
+                  } border-none sm:mx-2 px-2`}
+                >
+                  {pageNumber}
+                </Button>
+              </PaginationItem>
+            );
           }
-
-          return (
-            <PaginationItem key={pageNumber}>
-              <Button
-                variant='outline'
-                onClick={() => {
-                  setPage(pageNumber);
-                  scrollToTop();
-                }}
-                className={`${
-                  pageNumber === page ? 'bg-green-300 hover:bg-green-400' : 'bg-green-100 hover:bg-green-200'
-                } border-none sm:mx-2 px-1 sm:px-2 `}
-              >
-                {pageNumber}
-              </Button>
-            </PaginationItem>
-          );
+          return null;
         })}
+
+        {page < maxPages - 2 && (
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+        )}
+
+        {maxPages > 1 && (
+          <PaginationItem>
+            <Button
+              variant='outline'
+              onClick={() => {
+                setPage(maxPages);
+                scrollToTop();
+              }}
+              className={`${
+                page === maxPages
+                  ? 'bg-slate-200 drop-shadow-md hover:bg-slate-300'
+                  : 'bg-slate-50 drop-shadow-md hover:bg-slate-100'
+              } border-none sm:mx-2 px-2`}
+            >
+              {maxPages}
+            </Button>
+          </PaginationItem>
+        )}
 
         <PaginationItem>
           <Button

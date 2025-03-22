@@ -66,8 +66,8 @@ const SeriePage = async ({ params }: PageProps) => {
             </div>
           )}
           <div className='w-[342px] justify-self-center flex mt-2 justify-between items-center gap-x-2'>
-            <FavouriteBtn inFav={inFav} type='serie' id={id} />
-            <WatchlistBtn inWatch={inWatch} type='serie' id={id} />
+            <FavouriteBtn inFav={inFav} type='tv' id={id} />
+            <WatchlistBtn inWatch={inWatch} type='tv' id={id} />
           </div>
         </div>
         <div className='mx-10 grid gap-y-4 text-lg'>

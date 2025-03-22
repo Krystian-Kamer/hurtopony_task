@@ -1,10 +1,9 @@
 import SectionTitle from '@/components/SectionTitle';
 import Image from 'next/image';
 import { Genre } from '@/types';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import FavouriteBtn from '@/components/FavouriteBtn';
 import WatchlistBtn from '@/components/WatchlistBtn';
+import BackToHomeBtn from '@/components/BackToHomeBtn';
 
 const API_KEY = process.env.API_KEY;
 
@@ -112,9 +111,7 @@ const MoviePage = async ({ params }: PageProps) => {
         </div>
       </div>
       <div className='mx-auto flex justify-center max-w-5xl my-32'>
-        <Button variant='destructive' asChild>
-          <Link href='/'>Back to home page</Link>
-        </Button>
+        <BackToHomeBtn />
       </div>
     </div>
   );

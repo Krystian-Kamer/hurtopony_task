@@ -6,6 +6,7 @@ import {
   FetchMoviesResponse,
   FetchSeriesResponse,
   FetchPersonsResponse,
+  FetchListResponse,
 } from '@/types';
 
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -101,14 +102,14 @@ export const addToList = async (
   mediaType: string,
   listType: string
 ) => {
-  const url = `https://api.themoviedb.org/3/account/21856675/watchlist?api_key=${API_KEY}&session_id=${SESSION_ID}`;
+  const url = `https://api.themoviedb.org/3/account/21856675/${listType}?api_key=${API_KEY}&session_id=${SESSION_ID}`;
 
   const body = {
     media_id: id,
     media_type: mediaType,
     [listType]: true,
   };
-
+  console.log(body);
   try {
     const response = await fetch(url, {
       method: 'POST',
@@ -124,5 +125,30 @@ export const addToList = async (
     }
   } catch (error) {
     console.log('Failed to add to favorite list:', error);
+  }
+};
+
+export const fetchList = async (
+  listType: string,
+  mediaType: string
+): Promise<FetchListResponse> => {
+  const url = `https://api.themoviedb.org/3/account/21856675/${listType}/${mediaType}?api_key=${API_KEY}&session_id=${SESSION_ID}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    const { results, total_pages } = data;
+    const media: MovieType[] | SerieType[] = results;
+    const totalPages: number = total_pages;
+    return {
+      media,
+      totalPages,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      media: [] as MovieType[] | SerieType[],
+      totalPages: 0,
+    };
   }
 };
