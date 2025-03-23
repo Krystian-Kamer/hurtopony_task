@@ -19,6 +19,7 @@ interface MediaProps {
 }
 
 const MediaCard = ({ type, id, title, overview, img, loading }: MediaProps) => {
+  
   return (
     <TooltipProvider delayDuration={400}>
       <Tooltip>
@@ -36,7 +37,6 @@ const MediaCard = ({ type, id, title, overview, img, loading }: MediaProps) => {
                   height='330'
                   src={`https://www.themoviedb.org/t/p/w220_and_h330_face${img}`}
                   alt={title}
-                  priority
                 />
               ) : (
                 <div className='w-[220px] h-[330px] bg-black/10 flex flex-col justify-center items-center'>

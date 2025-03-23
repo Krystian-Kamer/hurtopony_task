@@ -30,9 +30,6 @@ const MoviePage = async ({ params }: PageProps) => {
   const response = await fetch(url);
   const movie = await response.json();
 
-  const inFav = false;
-  const inWatch = false;
-
   const {
     title,
     genres,
@@ -66,8 +63,8 @@ const MoviePage = async ({ params }: PageProps) => {
             </div>
           )}
           <div className='w-[342px] justify-self-center flex mt-2 justify-between items-center gap-x-2'>
-            <FavouriteBtn inFav={inFav} type='movie' id={id} />
-            <WatchlistBtn inWatch={inWatch} type='movie' id={id} />
+            <FavouriteBtn type='movie' id={id} title={title}/>
+            <WatchlistBtn type='movie' id={id} title={title}/>
           </div>
         </div>
         <div className='mx-10 grid gap-y-4 text-lg'>

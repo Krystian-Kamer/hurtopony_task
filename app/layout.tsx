@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/navbar/Navbar';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import Footer from '@/components/Footer';
+import { Toaster } from '@/components/ui/sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,6 +33,8 @@ export default function RootLayout({
       >
         <Navbar />
         <NuqsAdapter>{children}</NuqsAdapter>
+        <Footer />
+        <Toaster  position='top-center' />
       </body>
     </html>
   );

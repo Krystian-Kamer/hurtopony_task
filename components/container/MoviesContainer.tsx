@@ -21,7 +21,6 @@ const MoviesContainer = () => {
       const fetchedMovies = await fetchMovies(queryString);
       setMovies(fetchedMovies.movies);
       setTotalPages(fetchedMovies.totalPages);
-      await new Promise((resolve) => setTimeout(resolve, 200));
       setLoading(false);
     };
     fetchData();
@@ -41,14 +40,16 @@ const MoviesContainer = () => {
         ref={containerRef}
         className='grid pt-10 pb-20 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10 md:min-h-[1000px]'
       >
-        {movies.map((movie) => {
+        {movies.map((movie, index) => {
           const { id, title, overview, poster_path: img } = movie;
+          const delay = index * 0.15;
+
           return (
             <motion.div
               key={id}
-              initial={{ opacity: 0, y: 100 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay }}
             >
               <MediaCard
                 type='movies'

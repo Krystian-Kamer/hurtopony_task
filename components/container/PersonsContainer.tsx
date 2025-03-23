@@ -40,7 +40,7 @@ const PersonsContainer = () => {
         ref={containerRef}
         className='grid py-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10'
       >
-        {persons.map((person) => {
+        {persons.map((person, index) => {
           const {
             id,
             known_for_department: profession,
@@ -48,13 +48,14 @@ const PersonsContainer = () => {
             profile_path: img,
             known_for: knownFor,
           } = person;
+          const delay = index * 0.15;
 
           return (
             <motion.div
               key={id}
-              initial={{ opacity: 0, y: 100 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay }}
             >
               <PersonCard
                 id={id}
