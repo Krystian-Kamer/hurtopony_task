@@ -3,7 +3,8 @@ import Image from 'next/image';
 import { Genre } from '@/types';
 import FavouriteBtn from '@/components/FavouriteBtn';
 import WatchlistBtn from '@/components/WatchlistBtn';
-import BackToHomeBtn from '@/components/BackToHomeBtn';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 const API_KEY = process.env.API_KEY;
 
@@ -62,9 +63,9 @@ const MoviePage = async ({ params }: PageProps) => {
               <p className='italic px-2 text-black/60 text-2xl'>{title}</p>
             </div>
           )}
-          <div className='w-[342px] justify-self-center flex mt-2 justify-between items-center gap-x-2'>
-            <FavouriteBtn type='movie' id={id} title={title}/>
-            <WatchlistBtn type='movie' id={id} title={title}/>
+          <div className='justify-self-center flex mt-2 items-center gap-x-2'>
+            <FavouriteBtn type='movie' id={id} title={title} />
+            <WatchlistBtn type='movie' id={id} title={title} />
           </div>
         </div>
         <div className='mx-10 grid gap-y-4 text-lg'>
@@ -108,7 +109,9 @@ const MoviePage = async ({ params }: PageProps) => {
         </div>
       </div>
       <div className='mx-auto flex justify-center max-w-5xl my-32'>
-        <BackToHomeBtn />
+        <Button variant='destructive' asChild>
+          <Link href='/'>Back to movies page</Link>
+        </Button>
       </div>
     </div>
   );

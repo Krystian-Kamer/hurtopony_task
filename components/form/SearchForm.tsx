@@ -27,7 +27,7 @@ const SearchForm = () => {
   return (
     <form
       onSubmit={(e) => handleSubmit(e)}
-      className='flex w-64 md:w-52 gap-y-4 justify-self-center items-center flex-col bg-white'
+      className='flex gap-y-4 justify-self-center items-center flex-col bg-white'
     >
       <div>
         <Label htmlFor='query' className='font-semibold'>

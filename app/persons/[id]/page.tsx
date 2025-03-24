@@ -122,7 +122,7 @@ const PersonPage = async ({ params }: PageProps) => {
       </div>
       <div className='mx-auto flex justify-center max-w-5xl my-32'>
         <Button variant='destructive' asChild>
-          <Link href='/persons'>back to persons page</Link>
+          <Link href='/persons'>Back to persons page</Link>
         </Button>
       </div>
     </div>

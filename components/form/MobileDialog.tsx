@@ -28,7 +28,7 @@ const MobileDialog = () => {
   return (
     <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <AlertDialogTrigger asChild>
-        <Button className='md:hidden w-64 self-center'>Params</Button>
+        <Button className='md:hidden  self-center w-62'>Params</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

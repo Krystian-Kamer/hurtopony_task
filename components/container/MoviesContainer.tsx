@@ -11,6 +11,7 @@ const MoviesContainer = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const isSmallScreen = window.innerWidth < 768;
   const searchParams = useSearchParams();
   const containerRef = useRef(null);
 
@@ -47,9 +48,16 @@ const MoviesContainer = () => {
           return (
             <motion.div
               key={id}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay }}
+              initial={
+                isSmallScreen
+                  ? { opacity: 0, y: 150 }
+                  : { opacity: 0, scale: 0 }
+              }
+              whileInView={isSmallScreen ? { opacity: 1, y: 0 } : undefined}
+              animate={!isSmallScreen ? { opacity: 1, scale: 1 } : undefined}
+              transition={
+                isSmallScreen ? { duration: 0.4 } : { duration: 0.4, delay }
+              }
             >
               <MediaCard
                 type='movies'

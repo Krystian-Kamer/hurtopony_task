@@ -62,7 +62,7 @@ const SeriePage = async ({ params }: PageProps) => {
               <p className='italic px-2 text-black/60 text-2xl'>{title}</p>
             </div>
           )}
-          <div className='w-[342px] justify-self-center flex mt-2 justify-between items-center gap-x-2'>
+          <div className='justify-self-center flex mt-2 items-center gap-x-2'>
             <FavouriteBtn type='tv' id={id} title={title} />
             <WatchlistBtn type='tv' id={id} title={title} />
           </div>
