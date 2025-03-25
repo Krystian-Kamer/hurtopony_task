@@ -13,7 +13,7 @@ const SeriesContainer = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const searchParams = useSearchParams();
   const containerRef = useRef(null);
-  const isSmallScreen = window.innerWidth < 768;
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,6 +27,14 @@ const SeriesContainer = () => {
     };
     fetchData();
   }, [searchParams]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   if (!series.length && !loading) {
     return (
@@ -59,6 +67,7 @@ const SeriesContainer = () => {
               transition={
                 isSmallScreen ? { duration: 0.4 } : { duration: 0.4, delay }
               }
+              viewport={{ once: true }}
             >
               <MediaCard
                 type='series'

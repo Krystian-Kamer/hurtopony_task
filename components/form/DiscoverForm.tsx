@@ -7,11 +7,7 @@ import { Button } from '../ui/button';
 import { Checkbox } from '../ui/checkbox';
 import { useRef } from 'react';
 
-interface DiscoverFormProps {
-  setIsDialogOpen?: (isDialogOpen: boolean) => void;
-}
-
-const DiscoverForm = ({ setIsDialogOpen }: DiscoverFormProps) => {
+const DiscoverForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
 
   const [includeAdult, setIncludeAdult] = useQueryState('include_adult', {
@@ -40,10 +36,6 @@ const DiscoverForm = ({ setIsDialogOpen }: DiscoverFormProps) => {
     setSortBy(sortOption ?? '');
     setGenres(genres ?? '');
     setIncludeAdult(includeAdult);
-
-    if (typeof setIsDialogOpen === 'function') {
-      setIsDialogOpen(false);
-    }
   };
 
   const resetFilters = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -89,13 +81,13 @@ const DiscoverForm = ({ setIsDialogOpen }: DiscoverFormProps) => {
       <Button
         variant='destructive'
         type='submit'
-        className='w-full mt-5 md:mt-10 sm:mt-3 cursor-pointer'
+        className='w-full mt-3 md:mt-10 sm:mt-3 cursor-pointer'
       >
         Submit
       </Button>
       <Button
         variant='outline'
-        className='w-full mt-4 md:mt-4 cursor-pointer'
+        className='w-full mt-2 md:mt-4 cursor-pointer'
         onClick={(e) => resetFilters(e)}
       >
         Reset Filters

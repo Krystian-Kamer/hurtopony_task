@@ -11,7 +11,8 @@ const MoviesContainer = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const isSmallScreen = window.innerWidth < 768;
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
+
   const searchParams = useSearchParams();
   const containerRef = useRef(null);
 
@@ -26,6 +27,15 @@ const MoviesContainer = () => {
     };
     fetchData();
   }, [searchParams]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   if (!movies.length && !loading) {
     return (
@@ -58,6 +68,7 @@ const MoviesContainer = () => {
               transition={
                 isSmallScreen ? { duration: 0.4 } : { duration: 0.4, delay }
               }
+              viewport={{ once: true }}
             >
               <MediaCard
                 type='movies'

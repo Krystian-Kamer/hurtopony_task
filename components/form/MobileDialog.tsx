@@ -1,45 +1,35 @@
 'use client';
 import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Button } from '../ui/button';
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import DiscoverForm from './DiscoverForm';
-import { useState, useEffect } from 'react';
+import SearchForm from './SearchForm';
+import { motion } from 'framer-motion';
 
 const MobileDialog = () => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 767) {
-        setIsDialogOpen(false);
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    handleResize(); 
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
   return (
-    <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-      <AlertDialogTrigger asChild>
-        <Button className='md:hidden  self-center w-62'>Params</Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Choose params</AlertDialogTitle>
-          <DiscoverForm setIsDialogOpen={setIsDialogOpen} />
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel className='w-full self-center'>Cancel</AlertDialogCancel>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <Accordion type='single' className=' md:hidden w-5/6 z-10 mt-5 rounded-sm absolute bg-white border-2 px-2' collapsible>
+      <AccordionItem value='item-1'>
+        <AccordionTrigger className='  hover:no-underline tracking-wider'>
+          Search by
+        </AccordionTrigger>
+        <AccordionContent>
+          <motion.div
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+             className='sm:px-24'
+          >
+            <SearchForm />
+            <p className='text-center italic text-black/50 my-5'>or by</p>
+            <DiscoverForm />
+          </motion.div>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 };
 export default MobileDialog;

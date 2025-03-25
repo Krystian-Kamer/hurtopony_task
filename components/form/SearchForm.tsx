@@ -27,14 +27,13 @@ const SearchForm = () => {
   return (
     <form
       onSubmit={(e) => handleSubmit(e)}
-      className='flex gap-y-4 justify-self-center items-center flex-col bg-white'
+      className='flex gap-y-2 justify-self-center items-center flex-col bg-white w-full'
     >
-      <div>
+      <div className='w-full'>
         <Label htmlFor='query' className='font-semibold'>
-          Enter title
+          Title
         </Label>
         <Input
-          className='w-64 md:w-52'
           type='text'
           id='query'
           ref={queryRef}

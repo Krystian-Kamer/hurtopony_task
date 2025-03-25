@@ -23,8 +23,8 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <div className='border-t-2'>
-      <div className='mx-auto flex items-center justify-end py-10 px-4 sm:px-10 gap-x-5'>
+    <div className='border-t-2 flex justify-between bg-gray-100 items-center flex-col gap-y-4 py-5 sm:py-10 sm:flex-row'>
+      <div className='flex items-center  px-4 sm:px-10 pt-2 sm:order-1 gap-x-3 sm:gap-x-5'>
         {socialLinks.map(({ href, icon }, index) => (
           <a key={index} href={href} target='_blank' rel='noopener noreferrer'>
             <Button size='icon' variant='ghost'>
@@ -32,6 +32,9 @@ const Footer = () => {
             </Button>
           </a>
         ))}
+      </div>
+      <div className='sm:mx-10 font-semibold text-sm sm:text-base '>
+        © {new Date().getFullYear()} K.Kamer. All rights reserved.
       </div>
     </div>
   );

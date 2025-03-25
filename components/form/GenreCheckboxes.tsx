@@ -10,7 +10,7 @@ const GenreCheckboxes = ({ genres }: { genres: string }) => {
   return (
     <div>
       <p className='font-bold mb-6'>Genres</p>
-      <div className='grid grid-cols-2 md:grid-cols-1 gap-x-4 sm:gap-x-20 gap-y-3 md:gap-y-5'>
+      <div className='grid grid-cols-2 md:grid-cols-1 gap-x-4 sm:gap-x-20 gap-y-5'>
         {usedGenres.map((genre) => (
           <div key={genre.id} className='flex items-center space-x-2'>
             <Checkbox
