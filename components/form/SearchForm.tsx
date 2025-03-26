@@ -1,51 +1,44 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { useQueryState } from 'nuqs';
-import { useRef } from 'react';
-import { Label } from '@radix-ui/react-label';
+import { parseAsInteger, useQueryState } from 'nuqs';
+import { useEffect, useState } from 'react';
+
 const SearchForm = () => {
   const [query, setQuery] = useQueryState('query', { defaultValue: '' });
-  const queryRef = useRef<HTMLInputElement>(null);
-  const searchParams = useSearchParams();
+  const [tempQuery, setTempQuery] = useState(query);
+  const [, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const searchQuery = formData.get('query') as string;
-    if (!searchParams.has('query')) {
-      window.history.replaceState(null, '', window.location.pathname);
-    }
-    setQuery(searchQuery);
-    if (queryRef.current) {
-      queryRef.current.value = '';
-    }
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      if (tempQuery === '') {
+        setQuery('');
+      } else {
+        setQuery(tempQuery);
+      }
+      setPage(1);
+    }, 700);
+
+    return () => clearTimeout(handler);
+  }, [tempQuery]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTempQuery(e.target.value);
   };
 
   return (
-    <form
-      onSubmit={(e) => handleSubmit(e)}
-      className='flex gap-y-2 justify-self-center items-center flex-col bg-white w-full'
-    >
-      <div className='w-full'>
-        <Label htmlFor='query' className='font-semibold'>
-          Title
-        </Label>
-        <Input
-          type='text'
-          id='query'
-          ref={queryRef}
-          name='query'
-          placeholder='Type here title...'
-          defaultValue={query}
-        />
-      </div>
-      <Button className='cursor-pointer w-full' type='submit'>
-        Search
-      </Button>
-    </form>
+    <div className='w-full'>
+      <Input
+        type='text'
+        name='query'
+        className='bg-white rounded-none py-6 md:py-8 text-lg md:text-2xl px-8 md:px-0 tracking-wider md:text-center text-black/70 capitalize'
+        placeholder='Search by name...'
+        value={tempQuery}
+        onChange={handleChange}
+        autoComplete='off'
+      />
+    </div>
   );
 };
+
 export default SearchForm;

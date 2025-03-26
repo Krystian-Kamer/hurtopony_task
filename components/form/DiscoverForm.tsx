@@ -61,7 +61,7 @@ const DiscoverForm = () => {
 
   return (
     <form ref={formRef} onSubmit={(e) => handleSubmit(e)}>
-      <div className='flex justify-center gap-y-5 gap-x-4 flex-col'>
+      <div className='justify-center gap-y-5 gap-x-4 flex-col'>
         <SortBy defaultValue={sortBy} />
         <div className='flex items-center space-x-2 mb-4'>
           <Checkbox

@@ -109,7 +109,6 @@ export const addToList = async (
     media_type: mediaType,
     [listType]: true,
   };
-  console.log(body);
   try {
     const response = await fetch(url, {
       method: 'POST',

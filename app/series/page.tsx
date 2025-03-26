@@ -7,35 +7,26 @@ import { Suspense } from 'react';
 
 const SeriesPage = () => {
   return (
-    <div className='flex max-w-[1600px] mx-auto flex-col md:flex-row  items-center'>
-      <Suspense
-        fallback={
-          <div className='self-center'>
-            <SectionTitle title='Loading series...' />
-          </div>
-        }
-      >
-        <div className='border-2 mt-10 w-4/5 md:ml-5 md:mt-12 px-2 md:w-[250px] lg:px-3 top-20 md:mb-20 bg-white md:self-start pb-10 rounded-sm'>
-          <p className='text-3xl md:text-3xl lg:text-4xl text-center py-12 font-bold tracking-widest'>
-            Filter
-          </p>
-          <SearchForm />
-          <div className='flex flex-col w-4/5 justify-self-center mb-12'>
-            <p className='text-center mt-8 mb-4 md:mb-0 text-black/60 italic'>
-              or search by
+    <>
+      <SearchForm />
+      <div className='flex max-w-[1600px] mx-auto flex-col md:flex-row  items-center relative min-h-[800px] md:min-h-[1400px]'>
+        <Suspense fallback={<SectionTitle title='Loading series...' />}>
+          <MobileDialog />
+          <div className='hidden md:block border-2 mt-10 md:ml-5 md:mt-12 px-2 md:w-[290px] lg:px-4 md:mb-20 bg-white md:self-start pb-10 rounded-sm'>
+            <p className='text-3xl md:text-3xl lg:text-4xl text-center mt-12 font-bold tracking-widest'>
+              Filters
             </p>
-            <MobileDialog />
+            <div className='hidden md:block'>
+              <DiscoverForm />
+            </div>
           </div>
-          <div className='hidden md:block'>
-            <DiscoverForm />
+          <div className='flex mt-20 md:mt-10 w-full flex-col self-start'>
+            <SectionTitle title='Series' />
+            <SeriesContainer />
           </div>
-        </div>
-        <div className='flex mt-10 w-full flex-col self-start'>
-          <SectionTitle title='Series' />
-          <SeriesContainer />
-        </div>
-      </Suspense>
-    </div>
+        </Suspense>
+      </div>
+    </>
   );
 };
 export default SeriesPage;

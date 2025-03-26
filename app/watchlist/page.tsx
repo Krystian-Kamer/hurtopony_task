@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { MovieType, SerieType } from '@/types';
 import { fetchList } from '@/utils/actions';
 import MediaCard from '@/components/container/MediaCard';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const WatchlistPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -18,14 +19,37 @@ const WatchlistPage = () => {
       const fetchedSeries = await fetchList('watchlist', 'tv');
       setMovies(fetchedMovies.media as MovieType[]);
       setSeries(fetchedSeries.media as SerieType[]);
-      await new Promise((resolve) => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, 800));
       setLoading(false);
     };
     fetchData();
   }, []);
 
+  if (loading) {
+    return (
+      <div className='flex flex-col items-center min-h-[800px] md:min-h-[1200px]'>
+        <SectionTitle title='Your Watchlist' />
+        <div className='grid grid-cols sm:grid-cols-2 md:grid-cols-5 gap-4'>
+          {Array.from({ length: 20 }).map((_, index) => (
+            <Skeleton key={index} className='h-[330px] w-[220px] rounded-md' />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (movies.length === 0 && series.length === 0) {
+    return (
+      <div className='flex flex-col items-center min-h-[800px] md:min-h-[1200px]'>
+        <h4 className='mt-20 text-3xl font-bold tracking-wider'>
+          Your list is empty.
+        </h4>
+      </div>
+    );
+  }
+
   return (
-    <div className='flex flex-col items-center min-h-[1250px]'>
+    <div className='flex flex-col items-center min-h-[800px] md:min-h-[1400px]'>
       <Suspense fallback={<SectionTitle title='Loading watchlist...' />}>
         <SectionTitle title='Your Watchlist' />
         <h4 className='text-3xl font-bold'>Movies</h4>

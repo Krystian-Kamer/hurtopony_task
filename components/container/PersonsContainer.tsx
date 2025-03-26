@@ -50,7 +50,7 @@ useEffect(() => {
     <>
       <div
         ref={containerRef}
-        className='grid py-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10'
+        className='grid py-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10'
       >
         {persons.map((person, index) => {
           const {

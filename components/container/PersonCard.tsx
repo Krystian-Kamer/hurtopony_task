@@ -70,7 +70,7 @@ const PersonCard = ({
                       : 'text-xl'
                   } font-semibold px-1 tracking-wide`}
                 >
-                  {name}
+                  {name.length > 70 ? name.substring(0, 80) + '...' : name}
                 </h2>
               </div>
             </Link>

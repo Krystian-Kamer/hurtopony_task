@@ -26,7 +26,7 @@ const PageHandler = ({ totalPages, containerRef }: PageHandlerProps) => {
   };
 
   return (
-    <Pagination className='mb-40 w-full'>
+    <Pagination className='mb-10 mt-20 w-full'>
       <PaginationContent>
         <PaginationItem>
           <Button

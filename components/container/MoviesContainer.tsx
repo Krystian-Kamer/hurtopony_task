@@ -6,27 +6,42 @@ import PageHandler from '@/components/form/PageHandler';
 import { useEffect, useState, useRef } from 'react';
 import { MovieType } from '@/types';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 const MoviesContainer = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
-
+  const router = useRouter();
   const searchParams = useSearchParams();
   const containerRef = useRef(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      const queryString = searchParams.toString();
-      const fetchedMovies = await fetchMovies(queryString);
-      setMovies(fetchedMovies.movies);
-      setTotalPages(fetchedMovies.totalPages);
-      setLoading(false);
-    };
-    fetchData();
-  }, [searchParams]);
+useEffect(() => {
+  const fetchData = async () => {
+    setLoading(true);
+
+    const params = new URLSearchParams(searchParams);
+    const query = params.get('query');
+    const page = params.get('page');
+
+    const queryOnlyParams = query ? new URLSearchParams({ query }) : params;
+    if (query && page) {
+      queryOnlyParams.set('page', page);
+    }
+    if (query) {
+      router.replace(`?${queryOnlyParams.toString()}`, { scroll: false });
+    }
+
+    const fetchedMovies = await fetchMovies(queryOnlyParams.toString());
+    setMovies(fetchedMovies.movies);
+    setTotalPages(fetchedMovies.totalPages);
+
+    setLoading(false);
+  };
+
+  fetchData();
+}, [searchParams]);
 
   useEffect(() => {
     const handleResize = () => {

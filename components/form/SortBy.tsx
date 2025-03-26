@@ -11,7 +11,7 @@ import {
 const SortBy = ({ defaultValue }: { defaultValue: string }) => {
   return (
     <Select name='sort_by' defaultValue={defaultValue}>
-      <SelectTrigger className='w-full text-base'>
+      <SelectTrigger className='w-full my-6 text-base'>
         <SelectValue placeholder='Sort by...' />
       </SelectTrigger>
       <SelectContent>

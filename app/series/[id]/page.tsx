@@ -47,7 +47,7 @@ const SeriePage = async ({ params }: PageProps) => {
     <div className='max-w-6xl mb-40 mx-auto'>
       <SectionTitle title={title} />
       <div className='grid grid-cols-1 gap-y-10 md:grid-cols-2'>
-        <div>
+        <div className='w-[342px] justify-self-center'>
           {img ? (
             <Image
               width='342'
@@ -62,7 +62,7 @@ const SeriePage = async ({ params }: PageProps) => {
               <p className='italic px-2 text-black/60 text-2xl'>{title}</p>
             </div>
           )}
-          <div className='justify-self-center flex mt-2 items-center gap-x-2'>
+          <div className='mt-2 text-center space-x-2'>
             <FavouriteBtn type='tv' id={id} title={title} />
             <WatchlistBtn type='tv' id={id} title={title} />
           </div>

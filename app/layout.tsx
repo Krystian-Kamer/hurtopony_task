@@ -32,11 +32,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
       >
         <Navbar />
-        <p className='text-center my-10 text-xl font-bold tracking-wider'>This project is in progress.</p>
-        {/* <input
-          placeholder='Search by title... lupa a jak fokus to przyciemnienie reszty'
-          className='bg-white w-[100vw] py-4 text-2xl text-center border-b-2 tracking-widest'
-        /> */}
         <NuqsAdapter>{children}</NuqsAdapter>
         <Footer />
         <Toaster position='top-center' />
