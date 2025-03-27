@@ -5,15 +5,13 @@ import { Suspense } from 'react';
 
 const PersonsPage = async () => {
   return (
-    <>
+    <Suspense fallback={<SectionTitle title='Loading persons...' />}>
       <SearchForm />
       <div className='flex flex-col items-center min-h-[800px] md:min-h-[1400px]'>
-        <Suspense fallback={<SectionTitle title='Loading persons...' />}>
-          <SectionTitle title='Persons' />
-          <PersonsContainer />
-        </Suspense>
+        <SectionTitle title='Persons' />
+        <PersonsContainer />
       </div>
-    </>
+    </Suspense>
   );
 };
 export default PersonsPage;

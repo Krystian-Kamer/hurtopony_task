@@ -48,8 +48,8 @@ const FavoritesPage = () => {
   }
 
   return (
-    <div className='flex flex-col items-center min-h-[800px] md:min-h-[1400px]'>
       <Suspense fallback={<SectionTitle title='Loading favorites...' />}>
+    <div className='flex flex-col items-center min-h-[800px] md:min-h-[1400px]'>
         <SectionTitle title='Your Favorites' />
         {movies.length > 0 && (
           <>
@@ -113,8 +113,8 @@ const FavoritesPage = () => {
             </div>
           </>
         )}
-      </Suspense>
     </div>
+      </Suspense>
   );
 };
 export default FavoritesPage;

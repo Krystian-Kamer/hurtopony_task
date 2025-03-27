@@ -49,8 +49,8 @@ const WatchlistPage = () => {
   }
 
   return (
-    <div className='flex flex-col items-center min-h-[800px] md:min-h-[1400px]'>
       <Suspense fallback={<SectionTitle title='Loading watchlist...' />}>
+    <div className='flex flex-col items-center min-h-[800px] md:min-h-[1400px]'>
         <SectionTitle title='Your Watchlist' />
         <h4 className='text-3xl font-bold'>Movies</h4>
         <div className='self-center flex flex-col relative items-center'>
@@ -106,8 +106,8 @@ const WatchlistPage = () => {
             })}
           </div>
         </div>
-      </Suspense>
     </div>
+      </Suspense>
   );
 };
 export default WatchlistPage;
