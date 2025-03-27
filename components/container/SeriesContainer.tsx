@@ -13,7 +13,7 @@ const SeriesContainer = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const searchParams = useSearchParams();
   const containerRef = useRef(null);
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {

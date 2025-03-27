@@ -25,6 +25,63 @@ const PageHandler = ({ totalPages, containerRef }: PageHandlerProps) => {
     });
   };
 
+  if (maxPages <= 5) {
+    return (
+      <Pagination className='mb-10 mt-20 w-full'>
+        <PaginationContent>
+          <PaginationItem>
+            <Button
+              onClick={() => {
+                setPage(page - 1);
+                scrollToTop();
+              }}
+              className={
+                page <= 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'
+              }
+            >
+              Prev
+            </Button>
+          </PaginationItem>
+
+          {Array.from({ length: maxPages }, (_, i) => i + 1).map((p) => (
+            <PaginationItem key={p}>
+              <Button
+                variant='outline'
+                onClick={() => {
+                  setPage(p);
+                  scrollToTop();
+                }}
+                className={`${
+                  p === page
+                    ? 'bg-slate-200 hover:bg-slate-300'
+                    : 'bg-slate-50 hover:bg-slate-100'
+                } border-none sm:mx-2 px-2`}
+              >
+                {p}
+              </Button>
+            </PaginationItem>
+          ))}
+
+          <PaginationItem>
+            <Button
+              onClick={() => {
+                setPage(page + 1);
+                scrollToTop();
+              }}
+              className={
+                page >= maxPages
+                  ? 'pointer-events-none opacity-50'
+                  : 'cursor-pointer'
+              }
+            >
+              Next
+            </Button>
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+    );
+  }
+
   return (
     <Pagination className='mb-10 mt-20 w-full'>
       <PaginationContent>

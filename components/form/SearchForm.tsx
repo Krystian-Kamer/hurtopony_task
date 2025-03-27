@@ -31,9 +31,13 @@ const SearchForm = () => {
       <Input
         type='text'
         name='query'
-        className='bg-white rounded-none py-6 md:py-8 text-lg md:text-2xl px-8 md:px-0 tracking-wider md:text-center text-black/70 capitalize'
+        className='bg-white rounded-none py-6 md:py-8 text-lg md:text-2xl px-8 md:px-0 tracking-wider md:text-center text-black/70'
         placeholder='Search by name...'
-        value={tempQuery}
+        value={
+          tempQuery.length
+            ? tempQuery[0].toUpperCase() + tempQuery.slice(1)
+            : ''
+        }
         onChange={handleChange}
         autoComplete='off'
       />

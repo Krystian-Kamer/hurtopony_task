@@ -12,7 +12,7 @@ const MoviesContainer = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const containerRef = useRef(null);
