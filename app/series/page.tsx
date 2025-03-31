@@ -4,10 +4,11 @@ import MobileDialog from '@/components/form/MobileDialog';
 import SearchForm from '@/components/form/SearchForm';
 import SectionTitle from '@/components/SectionTitle';
 import { Suspense } from 'react';
+import Loading from '@/components/Loading';
 
 const SeriesPage = () => {
   return (
-    <Suspense fallback={<SectionTitle title='Loading series...' />}>
+    <Suspense fallback={<Loading title={'Loading series...'} />}>
       <SearchForm />
       <div className='flex md:max-w-[800px] lg:max-w-[1050px] xl:max-w-[1300px] 2xl:max-w-[1600px] mx-auto flex-col min-h-[800px] md:min-h-[1400px] md:flex-row items-center relative'>
         <MobileDialog />

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { MovieType, SerieType } from '@/types';
 import { fetchList } from '@/utils/actions';
 import MediaCard from '@/components/container/MediaCard';
-import { Skeleton } from '@/components/ui/skeleton';
+import Loading from '@/components/Loading';
 
 const FavoritesPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -25,16 +25,7 @@ const FavoritesPage = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className='flex flex-col items-center min-h-[800px] md:min-h-[1200px]'>
-        <SectionTitle title='Your Favorites' />
-        <div className='grid pt-10 pb-20 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10'>
-          {Array.from({ length: 20 }).map((_, index) => (
-            <Skeleton key={index} className='h-[330px] w-[220px] rounded-md' />
-          ))}
-        </div>
-      </div>
-    );
+    return <Loading title={'Loading favorites...'} />;
   }
 
   if (!loading && movies.length === 0 && series.length === 0) {
@@ -48,8 +39,8 @@ const FavoritesPage = () => {
   }
 
   return (
-      <Suspense fallback={<SectionTitle title='Loading favorites...' />}>
-    <div className='flex flex-col items-center min-h-[800px] md:min-h-[1400px]'>
+    <Suspense fallback={<Loading title={'Loading favorites...'} />}>
+      <div className='flex flex-col items-center min-h-[800px] md:min-h-[1400px]'>
         <SectionTitle title='Your Favorites' />
         {movies.length > 0 && (
           <>
@@ -99,7 +90,7 @@ const FavoritesPage = () => {
                       transition={{ duration: 0.4, delay }}
                     >
                       <MediaCard
-                        type='movies'
+                        type='series'
                         id={id}
                         title={title}
                         overview={overview}
@@ -113,8 +104,8 @@ const FavoritesPage = () => {
             </div>
           </>
         )}
-    </div>
-      </Suspense>
+      </div>
+    </Suspense>
   );
 };
 export default FavoritesPage;

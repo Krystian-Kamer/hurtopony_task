@@ -13,8 +13,7 @@ const PersonsContainer = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const searchParams = useSearchParams();
   const containerRef = useRef(null);
-const [isSmallScreen, setIsSmallScreen] = useState(false);
-
+const [isSmallScreen, setIsSmallScreen] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,14 +28,9 @@ const [isSmallScreen, setIsSmallScreen] = useState(false);
     fetchData();
   }, [searchParams]);
   
-useEffect(() => {
-  const handleResize = () => {
+  useEffect(() => {
     setIsSmallScreen(window.innerWidth < 768);
-  };
-
-  window.addEventListener('resize', handleResize);
-  return () => window.removeEventListener('resize', handleResize);
-}, []);
+  }, []);
 
   if (!persons.length && !loading) {
     return (

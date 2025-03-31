@@ -1,7 +1,7 @@
 'use client';
 import { Button } from './ui/button';
 import { MdOutlineBookmarkAdd, MdOutlineBookmark } from 'react-icons/md';
-import { addToList, fetchList } from '@/utils/actions';
+import { updateList, fetchList } from '@/utils/actions';
 import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
 
@@ -13,38 +13,54 @@ interface WatchlistBtnProps {
 
 const WatchlistBtn = ({ type, id, title }: WatchlistBtnProps) => {
   const [isMediaInWatch, setIsMediaInWatch] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      if (type === 'movie') {
-        const { media } = await fetchList('watchlist', 'movies');
-        setIsMediaInWatch(media.some((item) => item.id === Number(id)));
-      }
-      if (type === 'tv') {
-        const { media } = await fetchList('watchlist', 'tv');
-        setIsMediaInWatch(media.some((item) => item.id === Number(id)));
+      try {
+        if (type === 'movie') {
+          const { media } = await fetchList('watchlist', 'movies');
+          setIsMediaInWatch(media.some((item) => item.id === Number(id)));
+        }
+        if (type === 'tv') {
+          const { media } = await fetchList('watchlist', 'tv');
+          setIsMediaInWatch(media.some((item) => item.id === Number(id)));
+        }
+      } catch (error) {
+        console.error('Error fetching watchlist:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();
-    setIsLoading(false);
   }, [id, type]);
 
   const handleClick = async () => {
-    await addToList(id, type, 'favorite');
-    toast.success(title, {
-      description: 'Has been added to watchlist',
-    });
-    setIsMediaInWatch(true);
+    setIsLoading(true);
+    try {
+      await updateList(id, type, 'watchlist', !isMediaInWatch);
+      toast.success(title, {
+        description: isMediaInWatch
+          ? 'Has been removed from watchlist'
+          : 'Has been added to watchlist',
+      });
+      setIsMediaInWatch(!isMediaInWatch);
+    } catch (error) {
+      console.error('Failed to update watchlist:', error);
+      toast.error('Failed to update watchlist');
+    } finally {
+      setIsLoading(false);
+    }
   };
-
   return (
     <Button className='w-[165px]' disabled={isLoading} onClick={handleClick}>
-      {isMediaInWatch ? (
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : isMediaInWatch ? (
         <>
           <span className='tracking-tighter'>Remove from watchlist</span>
-          <MdOutlineBookmark className='size-5.5' />
+          <MdOutlineBookmark />
         </>
       ) : (
         <>

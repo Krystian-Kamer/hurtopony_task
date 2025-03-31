@@ -97,7 +97,71 @@ export const fetchPersons = async (
   }
 };
 
-export const addToList = async (
+export const updateList = async (
+  id: string,
+  mediaType: string,
+  listType: string,
+  add: boolean
+) => {
+  const url = `https://api.themoviedb.org/3/account/21856675/${listType}?api_key=${API_KEY}&session_id=${SESSION_ID}`;
+
+  const body = {
+    media_id: id,
+    media_type: mediaType,
+    [listType]: add,
+  };
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.log(`Error toggling ${listType}:`, errorData);
+      throw new Error(
+        `Failed to ${add ? 'add to' : 'remove from'} ${listType}`
+      );
+    }
+
+    return true;
+  } catch (error) {
+    console.log(
+      `Failed to ${add ? 'add to' : 'remove from'} favorites:`,
+      error
+    );
+    return false;
+  }
+};
+
+export const fetchList = async (
+  listType: string,
+  mediaType: string
+): Promise<FetchListResponse> => {
+  const url = `https://api.themoviedb.org/3/account/21856675/${listType}/${mediaType}?api_key=${API_KEY}&session_id=${SESSION_ID}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    const { results, total_pages } = data;
+    const media: MovieType[] | SerieType[] = results;
+    const totalPages: number = total_pages;
+    return {
+      media,
+      totalPages,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      media: [] as MovieType[] | SerieType[],
+      totalPages: 0,
+    };
+  }
+};
+
+export const removeFromList = async (
   id: string,
   mediaType: string,
   listType: string
@@ -124,30 +188,5 @@ export const addToList = async (
     }
   } catch (error) {
     console.log('Failed to add to favorite list:', error);
-  }
-};
-
-export const fetchList = async (
-  listType: string,
-  mediaType: string
-): Promise<FetchListResponse> => {
-  const url = `https://api.themoviedb.org/3/account/21856675/${listType}/${mediaType}?api_key=${API_KEY}&session_id=${SESSION_ID}`;
-
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    const { results, total_pages } = data;
-    const media: MovieType[] | SerieType[] = results;
-    const totalPages: number = total_pages;
-    return {
-      media,
-      totalPages,
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      media: [] as MovieType[] | SerieType[],
-      totalPages: 0,
-    };
   }
 };

@@ -12,7 +12,7 @@ const MoviesContainer = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(true);
   const router = useRouter();
   const searchParams = useSearchParams();
   const containerRef = useRef(null);
@@ -20,11 +20,9 @@ const MoviesContainer = () => {
 useEffect(() => {
   const fetchData = async () => {
     setLoading(true);
-
     const params = new URLSearchParams(searchParams);
     const query = params.get('query');
     const page = params.get('page');
-
     const queryOnlyParams = query ? new URLSearchParams({ query }) : params;
     if (query && page) {
       queryOnlyParams.set('page', page);
@@ -32,26 +30,19 @@ useEffect(() => {
     if (query) {
       router.replace(`?${queryOnlyParams.toString()}`, { scroll: false });
     }
-
     const fetchedMovies = await fetchMovies(queryOnlyParams.toString());
     setMovies(fetchedMovies.movies);
     setTotalPages(fetchedMovies.totalPages);
-
     setLoading(false);
   };
-
   fetchData();
 }, [searchParams]);
 
   useEffect(() => {
-    const handleResize = () => {
       setIsSmallScreen(window.innerWidth < 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  
   if (!movies.length && !loading) {
     return (
       <h2 className='text-2xl tracking-wider my-40 text-center font-semibold '>
