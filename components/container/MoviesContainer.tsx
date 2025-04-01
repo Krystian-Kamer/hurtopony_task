@@ -55,7 +55,7 @@ useEffect(() => {
     <div className='self-center flex flex-col relative items-center'>
       <div
         ref={containerRef}
-        className='grid pt-10 pb-20 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10 md:min-h-[1000px]'
+        className='grid px-4 pt-10 pb-20 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10 md:min-h-[1000px]'
       >
         {movies.map((movie, index) => {
           const { id, title, overview, poster_path: img } = movie;

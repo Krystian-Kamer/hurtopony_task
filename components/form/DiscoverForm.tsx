@@ -5,18 +5,23 @@ import GenreCheckboxes from './GenreCheckboxes';
 import SortBy from './SortBy';
 import { Button } from '../ui/button';
 import { Checkbox } from '../ui/checkbox';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
-const DiscoverForm = () => {
+interface DiscoverFormProps {
+  closeAccordion?: () => void;
+}
+
+const DiscoverForm = ({ closeAccordion }: DiscoverFormProps) => {
   const formRef = useRef<HTMLFormElement>(null);
+  const [, setIncludeAdult] = useQueryState('include_adult', {
+    defaultValue: '',
+  });
+  const [, setGenres] = useQueryState('with_genres', {
+    defaultValue: '',
+  });
+  const [, setSortBy] = useQueryState('sort_by', { defaultValue: '' });
+  const [sortOption, setSortOption] = useState<string | undefined>(undefined);
 
-  const [includeAdult, setIncludeAdult] = useQueryState('include_adult', {
-    defaultValue: '',
-  });
-  const [genres, setGenres] = useQueryState('with_genres', {
-    defaultValue: '',
-  });
-  const [sortBy, setSortBy] = useQueryState('sort_by', { defaultValue: '' });
   const searchParams = useSearchParams();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,41 +39,27 @@ const DiscoverForm = () => {
       window.history.replaceState(null, '', window.location.pathname);
     }
     setSortBy(sortOption ?? '');
+    setSortOption(sortOption ?? '');
     setGenres(genres ?? '');
     setIncludeAdult(includeAdult);
+    console.log(closeAccordion);
+    if (closeAccordion) {
+      closeAccordion();
+    }
   };
 
   const resetFilters = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     formRef.current?.reset();
-    const selectElement = formRef.current?.querySelector(
-      "select[name='sort_by']"
-    );
-    if (selectElement) {
-      (selectElement as HTMLSelectElement).value = '';
-      const event = new Event('change', { bubbles: true });
-      selectElement.dispatchEvent(event);
-    }
-      const genreCheckboxes = formRef.current?.querySelectorAll(
-        "input[name='genres']"
-      );
-      genreCheckboxes?.forEach((checkbox) => {
-        (checkbox as HTMLInputElement).checked = false;
-        const event = new Event('change', { bubbles: true });
-        checkbox.dispatchEvent(event);
-      });
+    setSortOption('');
   };
 
   return (
     <form ref={formRef} onSubmit={(e) => handleSubmit(e)}>
       <div className='justify-center gap-y-5 gap-x-4 flex-col'>
-        <SortBy defaultValue={sortBy} />
+        <SortBy option={sortOption} setSortOption={setSortOption} />
         <div className='flex items-center space-x-2 mb-4'>
-          <Checkbox
-            defaultChecked={includeAdult === 'true' ? true : false}
-            name='include_adult'
-            id='adult'
-          />
+          <Checkbox name='include_adult' id='adult' />
           <label
             htmlFor='adult'
             className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
@@ -77,7 +68,7 @@ const DiscoverForm = () => {
           </label>
         </div>
       </div>
-      <GenreCheckboxes genres={genres} />
+      <GenreCheckboxes />
       <Button
         variant='destructive'
         type='submit'

@@ -8,9 +8,14 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-const SortBy = ({ defaultValue }: { defaultValue: string }) => {
+interface SortByProps {
+  option: string | undefined;
+  setSortOption: (value: string) => void;
+}
+
+const SortBy = ({ option, setSortOption }: SortByProps) => {
   return (
-    <Select name='sort_by' defaultValue={defaultValue}>
+    <Select value={option} onValueChange={setSortOption} name='sort_by'>
       <SelectTrigger className='w-full my-6 text-base'>
         <SelectValue placeholder='Sort by...' />
       </SelectTrigger>

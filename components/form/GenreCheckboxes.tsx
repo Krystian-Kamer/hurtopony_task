@@ -3,7 +3,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { moviesGenres, seriesGenres } from '@/genres';
 import { usePathname } from 'next/navigation';
 
-const GenreCheckboxes = ({ genres }: { genres: string }) => {
+const GenreCheckboxes = () => {
   const pathname = usePathname();
   const usedGenres = pathname.includes('series') ? seriesGenres : moviesGenres;
 
@@ -16,7 +16,6 @@ const GenreCheckboxes = ({ genres }: { genres: string }) => {
             <Checkbox
               name={genre.id.toString()}
               id={genre.name}
-              defaultChecked={genres.split(',').includes(genre.id.toString())}
             />
             <label
               htmlFor={genre.name}
